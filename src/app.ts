@@ -2,6 +2,7 @@ import express from "express";
 import helmet from "helmet";
 import cors from "cors";
 import bodyParser from "body-parser";
+
 import { router } from "@/routes";
 
 export class App {
