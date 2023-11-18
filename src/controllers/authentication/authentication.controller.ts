@@ -101,7 +101,7 @@ class AuthenticationController extends Model {
         username: userRequest?.dataValues.username,
         email: userRequest?.dataValues.email,
         actionUrl: `${config.clientBaseUrl}/verifyAccount?token=${token}`,
-        appLogoUrl: `${req.protocol}://${req.headers.host}/aone-logo.svg`,
+        appLogoUrl: `${req.protocol}://${req.headers.host}/aone-logo.png`,
       };
 
       transaction.afterCommit(() => {

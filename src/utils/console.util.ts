@@ -6,6 +6,5 @@ export const consoleLog = (title: string, payload: any): void => {
 };
 
 export const consoleError = (title: string, payload: any): void => {
-  if (config.nodeEnv === "production") return;
   console.error(`[${title}] =>`, payload);
 };
