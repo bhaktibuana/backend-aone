@@ -7,3 +7,5 @@ export {
 export { parseDevice } from "@/utils/parseDevice.util";
 export { logFormat, logOptions } from "@/utils/appLogger.util";
 export { hashPassword } from "@/utils/hashPassword.util";
+export { capitalizeName, parseFullName } from "@/utils/parseName.util";
+export { generateJwt } from "@/utils/generateJwt.util";

@@ -2,12 +2,12 @@
 
 /** @type {import('sequelize-cli').Migration} */
 const moment = require("moment");
-const Model = require("../../dist/models");
+const { Model } = require("../../dist/models");
 const dateNow = moment().toDate();
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const model = new Model.default();
+    const model = new Model();
 
     const userData = await model.models.User.findOne({
       where: { username: "superadmin", email: "admin@aone.bhaktibuana.com" },

@@ -2,14 +2,14 @@
 
 /** @type {import('sequelize-cli').Migration} */
 const moment = require("moment");
-const Model = require("../../dist/models");
+const { Model } = require("../../dist/models");
 const { hashPassword } = require("../../dist/utils");
 const dateNow = moment().toDate();
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const model = new Model.default();
-    
+    const model = new Model();
+
     const roleData = await model.models.Role.findOne({
       where: { code: "SA" },
     });

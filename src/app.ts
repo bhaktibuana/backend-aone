@@ -2,6 +2,7 @@ import express from "express";
 import helmet from "helmet";
 import cors from "cors";
 import bodyParser from "body-parser";
+import path from "path";
 
 import { router } from "@/routes";
 
@@ -28,6 +29,10 @@ export class App {
     this.app.use(express.json());
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
+    this.app.use(
+      express.static(path.join(process.cwd(), "./src/assets/publicAssets"))
+    );
+    this.app.use(express.static(path.join(process.cwd(), "public")));
   }
 
   private routes(): void {

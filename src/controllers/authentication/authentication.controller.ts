@@ -2,8 +2,17 @@ import { Request, Response } from "express";
 import moment from "moment";
 
 import { Model } from "@/models";
-import { response, serverErrorResponse, hashPassword, AppError } from "@/utils";
+import {
+  response,
+  serverErrorResponse,
+  hashPassword,
+  AppError,
+  parseFullName,
+  generateJwt,
+} from "@/utils";
 import { IBaseWhereParams, IUserInput } from "@/types";
+import { smtpService } from "@/services";
+import { config } from "@/configs";
 
 class AuthenticationController extends Model {
   constructor() {
@@ -82,20 +91,89 @@ class AuthenticationController extends Model {
         transaction,
       });
 
-      const { password, ...userRespose } = userRequest?.dataValues;
+      const token: string = generateJwt({ id: userRequest?.dataValues.id });
+      const emailContext = {
+        fullName: parseFullName(
+          userRequest?.dataValues.firstName,
+          userRequest?.dataValues.lastName
+        ),
+        loginUrl: `${config.clientBaseUrl}/login`,
+        username: userRequest?.dataValues.username,
+        email: userRequest?.dataValues.email,
+        actionUrl: `${config.clientBaseUrl}/verifyAccount?token=${token}`,
+        appLogoUrl: `${req.protocol}://${req.headers.host}/aone-logo.svg`,
+      };
 
       transaction.afterCommit(() => {
-        response<typeof userRespose>(
+        smtpService.sendEmail(
+          "Welcome to Aone",
+          "mailVerification",
+          emailContext,
+          {
+            to: userRequest?.dataValues.email,
+          }
+        );
+
+        const { password, ...userResponse } = userRequest?.dataValues;
+        response<typeof userResponse>(
           "Registration success",
           201,
           res,
-          userRespose
+          userResponse
         );
       });
 
       await transaction.commit();
     } catch (error) {
       await transaction.rollback();
+      serverErrorResponse(error, res);
+    } finally {
+      return;
+    }
+  }
+
+  public async checkEmail(req: Request, res: Response): Promise<void> {
+    const { query } = req;
+
+    const payload = {
+      email: query?.email as string,
+    };
+
+    try {
+      const userQuery = await this.models.User.count({
+        where: { isDeleted: false, ...payload },
+      });
+
+      if (userQuery === 0) {
+        response("Email is available", 200, res, true);
+      } else {
+        response("Email is not available", 409, res, true);
+      }
+    } catch (error) {
+      serverErrorResponse(error, res);
+    } finally {
+      return;
+    }
+  }
+
+  public async checkUsername(req: Request, res: Response): Promise<void> {
+    const { query } = req;
+
+    const payload = {
+      username: query?.username as string,
+    };
+
+    try {
+      const userQuery = await this.models.User.count({
+        where: { isDeleted: false, ...payload },
+      });
+
+      if (userQuery === 0) {
+        response("Username is available", 200, res, true);
+      } else {
+        response("Username is not available", 409, res, true);
+      }
+    } catch (error) {
       serverErrorResponse(error, res);
     } finally {
       return;
