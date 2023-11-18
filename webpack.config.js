@@ -1,4 +1,5 @@
 const path = require("path");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "production",
@@ -25,5 +26,13 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: "./src/assets", to: "assets" },
+        { from: "./src/views", to: "views" },
+      ],
+    }),
+  ],
   externals: ["pg-hstore"],
 };

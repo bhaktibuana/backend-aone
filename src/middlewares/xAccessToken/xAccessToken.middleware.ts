@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from "express";
 import { config } from "@/configs";
 import { response } from "@/utils";
 
-class XAccessToken {
+export class XAccessToken {
   constructor() {}
 
   public xAccessTokenCheck(
@@ -22,5 +22,3 @@ class XAccessToken {
     }
   }
 }
-
-export const xAccessToken = new XAccessToken();

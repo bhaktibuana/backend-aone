@@ -20,15 +20,27 @@ export const response = <T>(
   res.status(statusCode).json(httpResponse);
 };
 
-export const serverErrorResponse = (error: Error, res: Response): void => {
-  consoleError("Internal Server Error:", error);
+export class AppError extends Error {
+  constructor(public statusCode: number, public message: string) {
+    super(message);
+    this.name = this.constructor.name;
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
 
-  const errorResponse: IErrorResponse = {
-    message: "Internal Server Error",
-    status: false,
-    statusCode: 500,
-    error,
-  };
+export const serverErrorResponse = (error: any, res: Response): void => {
+  if (error instanceof AppError) {
+    response(error.message, error.statusCode, res);
+  } else {
+    consoleError("Internal Server Error:", error);
 
-  res.status(500).json(errorResponse);
+    const errorResponse: IErrorResponse = {
+      message: "Internal Server Error",
+      status: false,
+      statusCode: 500,
+      error,
+    };
+
+    res.status(500).json(errorResponse);
+  }
 };
