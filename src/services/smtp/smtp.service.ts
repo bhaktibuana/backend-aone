@@ -4,12 +4,15 @@ import path from "path";
 import fs from "fs";
 
 import { consoleLog, consoleError } from "@/utils";
-import { smtpConfig } from "@/configs";
+import { config, smtpConfig } from "@/configs";
 import { IRecipient, IMailOptions, TReadHTMLFileCallback } from "@/types";
 
 class SMTPService {
   constructor() {
-    this.viewPath = path.join(process.cwd(), "./src/views");
+    this.viewPath = path.join(
+      process.cwd(),
+      config.nodeEnv === "production" ? "./dist/views" : "./src/views"
+    );
     this.transport = nodemailer.createTransport({
       port: smtpConfig.smtpPort,
       host: smtpConfig.smtpHost,

@@ -28,7 +28,10 @@ module.exports = {
   },
   plugins: [
     new CopyWebpackPlugin({
-      patterns: [{ from: "./src/assets", to: "assets" }],
+      patterns: [
+        { from: "./src/assets", to: "assets" },
+        { from: "./src/views", to: "views" },
+      ],
     }),
   ],
   externals: ["pg-hstore"],
