@@ -10,9 +10,17 @@ import {
   parseFullName,
   generateJwt,
 } from "@/utils";
-import { IBaseWhereParams, IUserInput } from "@/types";
 import { smtpService } from "@/services";
 import { config } from "@/configs";
+import {
+  IBaseWhereParams,
+  IUserInput,
+  IRegisterRequest,
+  ICheckEmailRequest,
+  ICheckUsernameRequest,
+  IUserCardInput,
+  IUserSubscriptionInput,
+} from "@/types";
 
 class AuthenticationController extends Model {
   constructor() {
@@ -37,25 +45,54 @@ class AuthenticationController extends Model {
    * Register
    */
   public async register(req: Request, res: Response): Promise<void> {
-    const { body } = req;
+    const { body } = req as never as IRegisterRequest;
     const createdAt = moment().toDate();
     const createdBy = "User Register";
 
-    const password: string = body?.encrypted
-      ? body?.password
-      : hashPassword(body?.password);
+    const password: string = body.encrypted
+      ? body.password
+      : hashPassword(body.password);
 
     const setUserPayload = (roleId: number): IUserInput => ({
-      firstName: body?.firstName,
-      lastName: body?.lastName,
-      username: body?.username,
-      email: body?.email,
+      firstName: body.firstName,
+      lastName: body.lastName,
+      username: body.username,
+      email: body.email,
       password,
       roleId,
       createdAt,
       createdBy,
       updatedAt: createdAt,
       updatedBy: createdBy,
+    });
+
+    const setUserCardPayload = (userId: number): IUserCardInput | null => {
+      if (
+        body.subscriptionCode === "personal" ||
+        body.subscriptionCode === "bussiness"
+      ) {
+        return {
+          userId,
+          cardholderName: body.cardholderName as string,
+          cardNumber: body.cardNumber as string,
+          cardCCV: generateJwt({ cardCCV: body.cardCCV }),
+          cardExpiration: moment(body.cardExpiration, "MM/YY").toDate(),
+          createdAt,
+          createdBy,
+        };
+      } else {
+        return null;
+      }
+    };
+
+    const setUserSubscriptionPayload = (
+      userId: number,
+      subscriptionId: number
+    ): IUserSubscriptionInput => ({
+      userId,
+      subscriptionId,
+      startDate: moment().startOf("D").toDate(),
+      endDate: moment().add(1, "M").startOf("D").toDate(),
     });
 
     const transaction = await this.sequelize.transaction();
@@ -87,7 +124,30 @@ class AuthenticationController extends Model {
         throw new AppError(409, "Username already registered");
       }
 
+      const subscriptionQuery = await this.models.Subscription.findOne({
+        where: {
+          isDeleted: false,
+          isActive: true,
+          code: body.subscriptionCode,
+        },
+        transaction,
+      });
+
       const userRequest = await this.models.User.create(userPayload, {
+        transaction,
+      });
+
+      const userCardPayload = setUserCardPayload(userRequest.dataValues.id);
+
+      userCardPayload !== null &&
+        (await this.models.UserCard.create(userCardPayload, { transaction }));
+
+      const userSubscriptionPayload = setUserSubscriptionPayload(
+        userRequest.dataValues.id,
+        subscriptionQuery?.dataValues.id as number
+      );
+
+      await this.models.UserSubscription.create(userSubscriptionPayload, {
         transaction,
       });
 
@@ -136,10 +196,10 @@ class AuthenticationController extends Model {
    * Check Email Exist
    */
   public async checkEmail(req: Request, res: Response): Promise<void> {
-    const { query } = req;
+    const { query } = req as never as ICheckEmailRequest;
 
     const payload = {
-      email: query?.email as string,
+      email: query.email as string,
     };
 
     try {
@@ -163,10 +223,10 @@ class AuthenticationController extends Model {
    * Check Username Exist
    */
   public async checkUsername(req: Request, res: Response): Promise<void> {
-    const { query } = req;
+    const { query } = req as never as ICheckUsernameRequest;
 
     const payload = {
-      username: query?.username as string,
+      username: query.username as string,
     };
 
     try {

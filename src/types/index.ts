@@ -31,3 +31,6 @@ export {
   IUserCardInput,
   IUserCardOutput,
 } from "@/types/models/userCard/IUserCardIO.type";
+export { IRegisterRequest } from "@/types/controllers/authentication/IRegisterRequest.type";
+export { ICheckEmailRequest } from "@/types/controllers/authentication/ICheckEmailRequest.type";
+export { ICheckUsernameRequest } from "@/types/controllers/authentication/ICheckUsernameRequest.type";
