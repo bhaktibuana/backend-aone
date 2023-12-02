@@ -132,6 +132,9 @@ class AuthenticationController extends Model {
     }
   }
 
+  /**
+   * Check Email Exist
+   */
   public async checkEmail(req: Request, res: Response): Promise<void> {
     const { query } = req;
 
@@ -156,6 +159,9 @@ class AuthenticationController extends Model {
     }
   }
 
+  /**
+   * Check Username Exist
+   */
   public async checkUsername(req: Request, res: Response): Promise<void> {
     const { query } = req;
 

@@ -16,3 +16,18 @@ export { IRecipient } from "@/types/services/smtp/IRecipient.type";
 export { IMailOptions } from "@/types/services/smtp/IMailOptions.type";
 export { TReadHTMLFileCallback } from "@/types/services/smtp/TReadHTMLFileCallback.type";
 export { TJwtPayload } from "@/types/utils/generateJwt/TJwtPayload.type";
+export { ISubscriptionAttributes } from "@/types/models/subscription/ISubscriptionAttributes.type";
+export {
+  ISubscriptionInput,
+  ISubscriptionOutput,
+} from "@/types/models/subscription/ISubscriptionIO.type";
+export { IUserSubscriptionAttributes } from "@/types/models/userSubscription/IUserSubscriptionAttributes.type";
+export {
+  IUserSubscriptionInput,
+  IUserSubscriptionOutput,
+} from "@/types/models/userSubscription/IUserSubscriptionIO.type";
+export { IUserCardAttributes } from "@/types/models/userCard/IUserCardAttributes.type";
+export {
+  IUserCardInput,
+  IUserCardOutput,
+} from "@/types/models/userCard/IUserCardIO.type";
