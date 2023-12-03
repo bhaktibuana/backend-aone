@@ -31,6 +31,8 @@ export {
   IUserCardInput,
   IUserCardOutput,
 } from "@/types/models/userCard/IUserCardIO.type";
-export { IRegisterRequest } from "@/types/controllers/authentication/IRegisterRequest.type";
-export { ICheckEmailRequest } from "@/types/controllers/authentication/ICheckEmailRequest.type";
-export { ICheckUsernameRequest } from "@/types/controllers/authentication/ICheckUsernameRequest.type";
+export { IRegisterRequest } from "@/types/controllers/authentication/register/IRegisterRequest.type";
+export { ICheckEmailRequest } from "@/types/controllers/authentication/register/ICheckEmailRequest.type";
+export { ICheckUsernameRequest } from "@/types/controllers/authentication/register/ICheckUsernameRequest.type";
+export { IVerifyEmailRequest } from "@/types/controllers/authentication/emailVerification/IVerifyEmailRequest.type";
+export { IVerifyJwt } from "@/types/utils/verifyJwt/IVerifyJwt.type";

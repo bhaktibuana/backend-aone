@@ -12,7 +12,7 @@ export interface IUserAttributes {
   updatedBy: string;
   deletedAt: Date;
   deletedBy: string;
-  isVerified: string;
+  isVerified: boolean;
   isActive: boolean;
   isDeleted: boolean;
 }
