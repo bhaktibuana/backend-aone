@@ -189,32 +189,44 @@ class LoginController extends Model {
         throw new AppError(401, message);
       }
 
-      await this.models.UserLogin.update(
-        userLoginPayload,
-        { where: { userId: body.userId }, transaction }
-      );
+      await this.models.UserLogin.update(userLoginPayload, {
+        where: { userId: body.userId },
+        transaction,
+      });
 
       const loginLogPayload = setLoginLogPayload(
         moment().toDate(),
         userLoginQuery?.dataValues.otpToken as string
       );
 
-      await this.models.LoginLog.create(loginLogPayload, { transaction });
+      const loginLogRequest = await this.models.LoginLog.create(
+        loginLogPayload,
+        { transaction }
+      );
 
       const userQuery = await this.models.User.findOne({
         where: { ...this.baseWhereParams, id: body.userId },
+        include: [
+          {
+            model: this.models.Role,
+            required: true,
+            attributes: { exclude: this.excludes },
+          },
+        ],
         attributes: {
           exclude: [...this.excludes, "password"],
         },
         transaction,
       });
 
-      const token = generateJwt(userQuery?.dataValues as IUserAttributes);
+      const accessToken = generateJwt({
+        ...(userQuery?.dataValues as IUserAttributes),
+        loginLogId: loginLogRequest.dataValues.id,
+      });
 
       transaction.afterCommit(() => {
         response("Login success", 200, res, {
-          id: userQuery?.dataValues.id,
-          token,
+          accessToken,
         });
       });
 

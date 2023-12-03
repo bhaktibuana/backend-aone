@@ -6,7 +6,7 @@ export interface ILogoutLogAttributes {
   device: string;
   logoutAt: Date;
   createdAt: Date;
-  createdBy: string;
+  createdBy: number;
   updatedAt: Date | null;
   updatedBy: number | null;
   deletedAt: Date | null;

@@ -14,7 +14,7 @@ export class LogoutLog
   public device!: string;
   public logoutAt!: Date;
   public createdAt!: Date;
-  public createdBy!: string;
+  public createdBy!: number;
   public updatedAt!: Date | null;
   public updatedBy!: number | null;
   public deletedAt!: Date | null;
