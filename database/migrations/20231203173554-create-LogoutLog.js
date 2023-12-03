@@ -40,25 +40,36 @@ module.exports = {
         defaultValue: Sequelize.literal("NOW()"),
       },
       createdBy: {
-        type: Sequelize.STRING(100),
+        type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: "User",
+          key: "id",
+        },
       },
       updatedAt: {
         type: Sequelize.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.literal("NOW()"),
+        allowNull: true,
       },
       updatedBy: {
-        type: Sequelize.STRING(100),
-        allowNull: false,
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: "User",
+          key: "id",
+        },
       },
       deletedAt: {
         type: Sequelize.DATE,
         allowNull: true,
       },
       deletedBy: {
-        type: Sequelize.STRING(100),
+        type: Sequelize.INTEGER,
         allowNull: true,
+        references: {
+          model: "User",
+          key: "id",
+        },
       },
       isActive: {
         type: Sequelize.BOOLEAN,

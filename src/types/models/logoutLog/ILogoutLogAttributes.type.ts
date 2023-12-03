@@ -7,10 +7,10 @@ export interface ILogoutLogAttributes {
   logoutAt: Date;
   createdAt: Date;
   createdBy: string;
-  updatedAt: Date;
-  updatedBy: string;
+  updatedAt: Date | null;
+  updatedBy: number | null;
   deletedAt: Date | null;
-  deletedBy: string | null;
+  deletedBy: number | null;
   isActive: boolean;
   isDeleted: boolean;
 }

@@ -15,10 +15,10 @@ export class LogoutLog
   public logoutAt!: Date;
   public createdAt!: Date;
   public createdBy!: string;
-  public updatedAt!: Date;
-  public updatedBy!: string;
+  public updatedAt!: Date | null;
+  public updatedBy!: number | null;
   public deletedAt!: Date | null;
-  public deletedBy!: string | null;
+  public deletedBy!: number | null;
   public isActive!: boolean;
   public isDeleted!: boolean;
 }
@@ -57,24 +57,23 @@ LogoutLog.init(
       defaultValue: sequelize.literal("NOW()"),
     },
     createdBy: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     updatedAt: {
       type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: sequelize.literal("NOW()"),
+      allowNull: true,
     },
     updatedBy: {
-      type: DataTypes.STRING(100),
-      allowNull: false,
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
     deletedAt: {
       type: DataTypes.DATE,
       allowNull: true,
     },
     deletedBy: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
     isActive: {
