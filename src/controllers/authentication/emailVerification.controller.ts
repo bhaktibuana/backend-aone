@@ -1,17 +1,9 @@
 import { Request, Response } from "express";
+import moment from "moment";
 
 import { Model } from "@/models";
-import {
-  response,
-  serverErrorResponse,
-  hashPassword,
-  AppError,
-  parseFullName,
-  generateJwt,
-  verifyJwt,
-} from "@/utils";
+import { response, serverErrorResponse, AppError, verifyJwt } from "@/utils";
 import { IBaseWhereParams, IVerifyEmailRequest, IVerifyJwt } from "@/types";
-import moment from "moment";
 
 class EmailVerificationController extends Model {
   constructor() {

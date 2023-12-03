@@ -14,8 +14,8 @@ export class Role
   public createdBy!: string;
   public updatedAt!: Date;
   public updatedBy!: string;
-  public deletedAt!: Date;
-  public deletedBy!: string;
+  public deletedAt!: Date | null;
+  public deletedBy!: string | null;
   public isActive!: boolean;
   public isDeleted!: boolean;
 }

@@ -8,6 +8,7 @@ export interface IUserInput
   extends Optional<
     IUserAttributes,
     | "id"
+    | "lastName"
     | "createdAt"
     | "createdBy"
     | "updatedAt"

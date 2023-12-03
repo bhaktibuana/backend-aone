@@ -36,3 +36,18 @@ export { ICheckEmailRequest } from "@/types/controllers/authentication/register/
 export { ICheckUsernameRequest } from "@/types/controllers/authentication/register/ICheckUsernameRequest.type";
 export { IVerifyEmailRequest } from "@/types/controllers/authentication/emailVerification/IVerifyEmailRequest.type";
 export { IVerifyJwt } from "@/types/utils/verifyJwt/IVerifyJwt.type";
+export { ILoginRequest } from "@/types/controllers/authentication/login/ILoginRequest.type";
+export { IUserLoginAttributes } from "@/types/models/userLogin/IUserLoginAttributes.type";
+export {
+  IUserLoginInput,
+  IUserLoginOutput,
+} from "@/types/models/userLogin/IUserLoginIO.type";
+export { ILoginLogAttributes } from "@/types/models/loginLog/ILoginLogAttributes.type";
+export {
+  ILoginLogInput,
+  ILoginLogOutput,
+} from "@/types/models/loginLog/ILoginLogIO.type";
+export { TGenerateOtp, TOtpToken } from "@/types/utils/otp/TGenerateOtp.type";
+export { IVerifyOtp } from "@/types/utils/otp/IVerifyOtp.type";
+export { IBaselLocalsResponse } from "@/types/controllers/IBaseLocalsResponse.type";
+export { IVerifyLoginRequest } from "@/types/controllers/authentication/login/IVerifyLoginRequest.type";

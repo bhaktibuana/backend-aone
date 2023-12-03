@@ -25,6 +25,7 @@
     "@types/jsonwebtoken": "^9.0.5",
     "@types/morgan": "^1.9.9",
     "@types/nodemailer": "^6.4.14",
+    "@types/otp-generator": "^4.0.2",
     "copy-webpack-plugin": "^11.0.0",
     "cross-env": "^7.0.3",
     "sequelize-cli": "^6.6.2",
@@ -48,6 +49,7 @@
     "morgan": "^1.10.0",
     "mysql2": "^3.6.3",
     "nodemailer": "^6.9.7",
+    "otp-generator": "^4.0.1",
     "sequelize": "^6.35.0"
   }
 }

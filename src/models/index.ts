@@ -7,6 +7,8 @@ import { User } from "@/models/user.model";
 import { Subscription } from "@/models/subscription.model";
 import { UserSubscription } from "@/models/userSubscription.model";
 import { UserCard } from "@/models/userCard.model";
+import { UserLogin } from "@/models/userLogin.model";
+import { LoginLog } from "@/models/loginLog.model";
 
 export class Model {
   constructor() {
@@ -19,6 +21,8 @@ export class Model {
       Subscription,
       UserSubscription,
       UserCard,
+      UserLogin,
+      LoginLog,
     };
   }
 
@@ -40,6 +44,12 @@ export class Model {
       foreignKey: "userId",
     });
     User.hasMany(UserCard, {
+      foreignKey: "userId",
+    });
+    User.hasOne(UserLogin, {
+      foreignKey: "userId",
+    });
+    User.hasMany(LoginLog, {
       foreignKey: "userId",
     });
   }

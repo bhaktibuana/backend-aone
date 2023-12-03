@@ -1,7 +1,11 @@
-export interface IRoleAttributes {
+export interface ILoginLogAttributes {
   id: number;
-  code: string;
-  name: string;
+  userId: number;
+  ipAddress: string;
+  userAgent: string;
+  device: string;
+  loginAt: Date;
+  otpToken: string;
   createdAt: Date;
   createdBy: string;
   updatedAt: Date;

@@ -7,10 +7,10 @@ export interface IUserCardAttributes {
   cardExpiration: Date;
   createdAt: Date;
   createdBy: string;
-  updatedAt: Date;
-  updatedBy: string;
-  deletedAt: Date;
-  deletedBy: string;
+  updatedAt: Date| null;
+  updatedBy: string| null;
+  deletedAt: Date| null;
+  deletedBy: string| null;
   isActive: boolean;
   isDeleted: boolean;
 }

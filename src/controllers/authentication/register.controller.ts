@@ -20,6 +20,7 @@ import {
   ICheckUsernameRequest,
   IUserCardInput,
   IUserSubscriptionInput,
+  IUserLoginInput,
 } from "@/types";
 
 class RegisterController extends Model {
@@ -60,6 +61,14 @@ class RegisterController extends Model {
       email: body.email,
       password,
       roleId,
+      createdAt,
+      createdBy,
+      updatedAt: createdAt,
+      updatedBy: createdBy,
+    });
+
+    const setUserLoginPayload = (userId: number): IUserLoginInput => ({
+      userId,
       createdAt,
       createdBy,
       updatedAt: createdAt,
@@ -136,6 +145,10 @@ class RegisterController extends Model {
         transaction,
       });
 
+      const userLoginPayload = setUserLoginPayload(userRequest.dataValues.id);
+
+      await this.models.UserLogin.create(userLoginPayload, { transaction });
+
       const userCardPayload = setUserCardPayload(userRequest.dataValues.id);
 
       userCardPayload !== null &&
@@ -154,7 +167,7 @@ class RegisterController extends Model {
       const emailContext = {
         fullName: parseFullName(
           userRequest?.dataValues.firstName,
-          userRequest?.dataValues.lastName
+          userRequest?.dataValues.lastName as string
         ),
         loginUrl: `${config.clientBaseUrl}/login`,
         username: userRequest?.dataValues.username,
@@ -168,9 +181,7 @@ class RegisterController extends Model {
           "Welcome to Aone",
           "mailVerification",
           emailContext,
-          {
-            to: userRequest?.dataValues.email,
-          }
+          { to: userRequest.dataValues.email }
         );
 
         const { password, ...userResponse } = userRequest?.dataValues;
@@ -197,13 +208,9 @@ class RegisterController extends Model {
   public async checkEmail(req: Request, res: Response): Promise<void> {
     const { query } = req as never as ICheckEmailRequest;
 
-    const payload = {
-      email: query.email as string,
-    };
-
     try {
       const userQuery = await this.models.User.count({
-        where: { isDeleted: false, ...payload },
+        where: { isDeleted: false, email: { [this.Op.like]: query.email } },
       });
 
       if (userQuery === 0) {
@@ -224,13 +231,9 @@ class RegisterController extends Model {
   public async checkUsername(req: Request, res: Response): Promise<void> {
     const { query } = req as never as ICheckUsernameRequest;
 
-    const payload = {
-      username: query.username as string,
-    };
-
     try {
       const userQuery = await this.models.User.count({
-        where: { isDeleted: false, ...payload },
+        where: { isDeleted: false, username: query.username },
       });
 
       if (userQuery === 0) {
