@@ -51,3 +51,8 @@ export { TGenerateOtp, TOtpToken } from "@/types/utils/otp/TGenerateOtp.type";
 export { IVerifyOtp } from "@/types/utils/otp/IVerifyOtp.type";
 export { IBaselLocalsResponse } from "@/types/controllers/IBaseLocalsResponse.type";
 export { IVerifyLoginRequest } from "@/types/controllers/authentication/login/IVerifyLoginRequest.type";
+export { ILogoutLogAttributes } from "@/types/models/logoutLog/ILogoutLogAttributes.type";
+export {
+  ILogoutLogInput,
+  ILogoutLogOutput,
+} from "@/types/models/logoutLog/ILogoutLogIO.type";

@@ -9,6 +9,7 @@ import { UserSubscription } from "@/models/userSubscription.model";
 import { UserCard } from "@/models/userCard.model";
 import { UserLogin } from "@/models/userLogin.model";
 import { LoginLog } from "@/models/loginLog.model";
+import { LogoutLog } from "@/models/logoutLog.model";
 
 export class Model {
   constructor() {
@@ -23,6 +24,7 @@ export class Model {
       UserCard,
       UserLogin,
       LoginLog,
+      LogoutLog,
     };
   }
 
@@ -34,6 +36,7 @@ export class Model {
     this.userAsc();
     this.subscriptionAsc();
     this.userSubscriptionAsc();
+    this.loginLogAsc();
   }
 
   private userAsc(): void {
@@ -66,6 +69,12 @@ export class Model {
     });
     UserSubscription.belongsTo(Subscription, {
       foreignKey: "subscriptionId",
+    });
+  }
+
+  private loginLogAsc(): void {
+    LoginLog.hasOne(LogoutLog, {
+      foreignKey: "loginLogId",
     });
   }
 }

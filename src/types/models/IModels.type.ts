@@ -5,6 +5,7 @@ import { UserSubscription } from "@/models/userSubscription.model";
 import { UserCard } from "@/models/userCard.model";
 import { UserLogin } from "@/models/userLogin.model";
 import { LoginLog } from "@/models/loginLog.model";
+import { LogoutLog } from "@/models/logoutLog.model";
 export interface IModels {
   Role: typeof Role;
   User: typeof User;
@@ -13,4 +14,5 @@ export interface IModels {
   UserCard: typeof UserCard;
   UserLogin: typeof UserLogin;
   LoginLog: typeof LoginLog;
+  LogoutLog: typeof LogoutLog;
 }
