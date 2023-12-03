@@ -20,7 +20,7 @@ export class User
   public updatedBy!: string;
   public deletedAt!: Date;
   public deletedBy!: string;
-  public isVerified!: string;
+  public isVerified!: boolean;
   public isActive!: boolean;
   public isDeleted!: boolean;
 }

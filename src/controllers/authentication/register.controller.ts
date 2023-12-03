@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import moment from "moment";
 
 import { Model } from "@/models";
+import { smtpService } from "@/services";
+import { config } from "@/configs";
 import {
   response,
   serverErrorResponse,
@@ -10,8 +12,6 @@ import {
   parseFullName,
   generateJwt,
 } from "@/utils";
-import { smtpService } from "@/services";
-import { config } from "@/configs";
 import {
   IBaseWhereParams,
   IUserInput,
@@ -22,7 +22,7 @@ import {
   IUserSubscriptionInput,
 } from "@/types";
 
-class AuthenticationController extends Model {
+class RegisterController extends Model {
   constructor() {
     super();
     this.baseWhereParams = { isActive: true, isDeleted: false };
@@ -126,8 +126,7 @@ class AuthenticationController extends Model {
 
       const subscriptionQuery = await this.models.Subscription.findOne({
         where: {
-          isDeleted: false,
-          isActive: true,
+          ...this.baseWhereParams,
           code: body.subscriptionCode,
         },
         transaction,
@@ -247,4 +246,4 @@ class AuthenticationController extends Model {
   }
 }
 
-export const authenticationController = new AuthenticationController();
+export const registerController = new RegisterController();
