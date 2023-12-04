@@ -220,10 +220,13 @@ class LoginController extends Model {
         transaction,
       });
 
-      const accessToken = generateJwt({
-        ...(userQuery?.dataValues as IUserAttributes),
-        loginLogId: loginLogRequest.dataValues.id,
-      });
+      const accessToken = generateJwt(
+        {
+          ...(userQuery?.dataValues as IUserAttributes),
+          loginLogId: loginLogRequest.dataValues.id,
+        },
+        "7d"
+      );
 
       transaction.afterCommit(() => {
         response("Login success", 200, res, {
