@@ -3,36 +3,36 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("UserLogin", {
+    await queryInterface.createTable("LogoutLog", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
       },
-      userId: {
+      loginLogId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "User",
+          model: "LoginLog",
           key: "id",
         },
       },
       ipAddress: {
         type: Sequelize.STRING(50),
-        allowNull: true,
+        allowNull: false,
       },
       userAgent: {
         type: Sequelize.STRING(255),
-        allowNull: true,
+        allowNull: false,
       },
       device: {
         type: Sequelize.STRING(50),
-        allowNull: true,
+        allowNull: false,
       },
-      otpToken: {
-        type: Sequelize.STRING(255),
-        allowNull: true,
+      logoutAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -40,25 +40,36 @@ module.exports = {
         defaultValue: Sequelize.literal("NOW()"),
       },
       createdBy: {
-        type: Sequelize.STRING(100),
+        type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: "User",
+          key: "id",
+        },
       },
       updatedAt: {
         type: Sequelize.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.literal("NOW()"),
+        allowNull: true,
       },
       updatedBy: {
-        type: Sequelize.STRING(100),
-        allowNull: false,
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: "User",
+          key: "id",
+        },
       },
       deletedAt: {
         type: Sequelize.DATE,
         allowNull: true,
       },
       deletedBy: {
-        type: Sequelize.STRING(100),
+        type: Sequelize.INTEGER,
         allowNull: true,
+        references: {
+          model: "User",
+          key: "id",
+        },
       },
       isActive: {
         type: Sequelize.BOOLEAN,
@@ -74,6 +85,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("UserLogin");
+    await queryInterface.dropTable("LogoutLog");
   },
 };

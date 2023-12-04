@@ -13,10 +13,10 @@ export class Subscription
   public price!: number;
   public createdAt!: Date;
   public createdBy!: string;
-  public updatedAt!: Date;
-  public updatedBy!: string;
-  public deletedAt!: Date;
-  public deletedBy!: string;
+  public updatedAt!: Date | null;
+  public updatedBy!: string | null;
+  public deletedAt!: Date | null;
+  public deletedBy!: string | null;
   public isActive!: boolean;
   public isDeleted!: boolean;
 }

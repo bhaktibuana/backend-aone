@@ -9,7 +9,7 @@ export class User
 {
   public id!: number;
   public firstName!: string;
-  public lastName!: string;
+  public lastName!: string | null;
   public username!: string;
   public email!: string;
   public password!: string;
@@ -18,8 +18,8 @@ export class User
   public createdBy!: string;
   public updatedAt!: Date;
   public updatedBy!: string;
-  public deletedAt!: Date;
-  public deletedBy!: string;
+  public deletedAt!: Date | null;
+  public deletedBy!: string | null;
   public isVerified!: boolean;
   public isActive!: boolean;
   public isDeleted!: boolean;

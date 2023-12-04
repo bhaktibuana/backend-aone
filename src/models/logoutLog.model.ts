@@ -1,29 +1,29 @@
 import { DataTypes, Model } from "sequelize";
 
 import { sequelize } from "@/models/connection";
-import { IUserCardAttributes, IUserCardInput } from "@/types";
+import { ILogoutLogAttributes, ILogoutLogInput } from "@/types";
 
-export class UserCard
-  extends Model<IUserCardAttributes, IUserCardInput>
-  implements IUserCardAttributes
+export class LogoutLog
+  extends Model<ILogoutLogAttributes, ILogoutLogInput>
+  implements ILogoutLogAttributes
 {
   public id!: number;
-  public userId!: number;
-  public cardholderName!: string;
-  public cardNumber!: string;
-  public cardCCV!: string;
-  public cardExpiration!: Date;
+  public loginLogId!: number;
+  public ipAddress!: string;
+  public userAgent!: string;
+  public device!: string;
+  public logoutAt!: Date;
   public createdAt!: Date;
-  public createdBy!: string;
+  public createdBy!: number;
   public updatedAt!: Date | null;
-  public updatedBy!: string | null;
+  public updatedBy!: number | null;
   public deletedAt!: Date | null;
-  public deletedBy!: string | null;
+  public deletedBy!: number | null;
   public isActive!: boolean;
   public isDeleted!: boolean;
 }
 
-UserCard.init(
+LogoutLog.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -31,23 +31,23 @@ UserCard.init(
       autoIncrement: true,
       allowNull: false,
     },
-    userId: {
+    loginLogId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    cardholderName: {
-      type: DataTypes.STRING(100),
+    ipAddress: {
+      type: DataTypes.STRING(50),
       allowNull: false,
     },
-    cardNumber: {
-      type: DataTypes.STRING(16),
+    userAgent: {
+      type: DataTypes.STRING(255),
       allowNull: false,
     },
-    cardCCV: {
-      type: DataTypes.STRING,
+    device: {
+      type: DataTypes.STRING(50),
       allowNull: false,
     },
-    cardExpiration: {
+    logoutAt: {
       type: DataTypes.DATE,
       allowNull: false,
     },
@@ -57,7 +57,7 @@ UserCard.init(
       defaultValue: sequelize.literal("NOW()"),
     },
     createdBy: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     updatedAt: {
@@ -65,7 +65,7 @@ UserCard.init(
       allowNull: true,
     },
     updatedBy: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
     deletedAt: {
@@ -73,7 +73,7 @@ UserCard.init(
       allowNull: true,
     },
     deletedBy: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
     isActive: {
@@ -88,7 +88,7 @@ UserCard.init(
     },
   },
   {
-    tableName: "UserCard",
+    tableName: "LogoutLog",
     freezeTableName: true,
     timestamps: false,
     sequelize: sequelize,

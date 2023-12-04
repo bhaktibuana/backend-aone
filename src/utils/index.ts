@@ -10,3 +10,4 @@ export { hashPassword } from "@/utils/hashPassword.util";
 export { capitalizeName, parseFullName } from "@/utils/parseName.util";
 export { generateJwt } from "@/utils/generateJwt.util";
 export { verifyJwt } from "@/utils/verifyJwt.util";
+export { generateOtp, verifyOtp } from "@/utils/otp.util";
