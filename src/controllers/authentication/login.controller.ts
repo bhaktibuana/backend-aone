@@ -209,6 +209,7 @@ class LoginController extends Model {
         include: [
           {
             model: this.models.Role,
+            as: "Role",
             required: true,
             attributes: { exclude: this.excludes },
           },

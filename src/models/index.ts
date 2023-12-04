@@ -13,7 +13,6 @@ import { LogoutLog } from "@/models/logoutLog.model";
 
 export class Model {
   constructor() {
-    this.associate();
     this.Op = Op;
     this.sequelize = sequelize;
     this.models = {
@@ -31,6 +30,13 @@ export class Model {
   public Op: typeof Op;
   public sequelize: Sequelize;
   public models: IModels;
+}
+
+class ModelAssociate extends Model {
+  constructor() {
+    super();
+    this.associate();
+  }
 
   private associate(): void {
     this.userAsc();
@@ -41,40 +47,51 @@ export class Model {
 
   private userAsc(): void {
     User.belongsTo(Role, {
+      as: "Role",
       foreignKey: "roleId",
     });
     User.hasMany(UserSubscription, {
+      as: "UserSubscription",
       foreignKey: "userId",
     });
     User.hasMany(UserCard, {
+      as: "UserCard",
       foreignKey: "userId",
     });
     User.hasOne(UserLogin, {
+      as: "UserLogin",
       foreignKey: "userId",
     });
     User.hasMany(LoginLog, {
+      as: "LoginLog",
       foreignKey: "userId",
     });
   }
 
   private subscriptionAsc(): void {
     Subscription.hasMany(UserSubscription, {
+      as: "UserSubscription",
       foreignKey: "subscriptionId",
     });
   }
 
   private userSubscriptionAsc(): void {
     UserSubscription.belongsTo(User, {
+      as: "User",
       foreignKey: "userId",
     });
     UserSubscription.belongsTo(Subscription, {
+      as: "Subscription",
       foreignKey: "subscriptionId",
     });
   }
 
   private loginLogAsc(): void {
     LoginLog.hasOne(LogoutLog, {
+      as: "LogoutLog",
       foreignKey: "loginLogId",
     });
   }
 }
+
+new ModelAssociate();
