@@ -18,7 +18,7 @@
     "seed:dev": "tsc --project tsconfig.test.json && cross-env NODE_ENV=development node -r tsconfig-paths/register ./database/seeders",
     "migrate:prod": "tsc --project tsconfig.test.json && cross-env NODE_ENV=production sequelize-cli db:migrate",
     "seed:prod": "tsc --project tsconfig.test.json && cross-env NODE_ENV=production node -r tsconfig-paths/register ./database/seeders",
-    "test": "rm -rf __tests__/coverage && jest"
+    "test": "rm -rf __tests__/coverage && cross-env NODE_ENV=development jest"
   },
   "devDependencies": {
     "@types/cors": "^2.8.16",

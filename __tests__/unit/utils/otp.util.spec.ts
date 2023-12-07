@@ -39,7 +39,6 @@ describe("OTP", () => {
   });
 
   it("Should error if token expired", () => {
-    const pastTimestamp = Math.floor(Date.now() / 1000) - 10;
     const { otp } = generateOtp();
     const otpToken = generateJwt(
       {
