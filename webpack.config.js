@@ -22,7 +22,7 @@ module.exports = {
         test: /\.ts$/,
         use: "ts-loader",
         include: [path.resolve(__dirname, "src")],
-        exclude: /node_modules/,
+        exclude: /node_modules|__tests__|.*\.(spec|test)\.[jt]s?(x)/,
       },
     ],
   },
