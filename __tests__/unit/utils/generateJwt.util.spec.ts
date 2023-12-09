@@ -1,21 +1,57 @@
-import { generateJwt, verifyJwt } from "@/utils";
+import { generateJwt } from "@/utils";
 
-describe("Generate JWT", () => {
-  const dummy = { name: "John" };
+jest.mock("jsonwebtoken");
 
-  it("Should be able to generate JWT", () => {
-    const token = generateJwt(dummy);
-    expect(token).not.toBe("");
+jest.mock("@/configs/app.config", () => ({
+  config: {
+    jwtSecretKey: "mockedSecretKey",
+  },
+}));
+
+describe("generateJwt", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
-  it("Token should be a string", () => {
-    const token = generateJwt(dummy);
-    expect(typeof token).toBe("string");
+  it("should generate a JWT with payload and expiration", () => {
+    const mockPayload = { userId: 123, role: "user" };
+    const mockExpiresIn = "1h";
+    const mockGeneratedJwt = "mockedJwtToken";
+
+    (require("jsonwebtoken").sign as jest.Mock).mockReturnValue(
+      mockGeneratedJwt
+    );
+
+    const result = generateJwt(mockPayload, mockExpiresIn);
+
+    expect(result).toEqual(mockGeneratedJwt);
+    expect(require("jsonwebtoken").sign).toHaveBeenCalledWith(
+      mockPayload,
+      require("@/configs/app.config").config.jwtSecretKey,
+      {
+        algorithm: "HS256",
+        expiresIn: mockExpiresIn,
+      }
+    );
   });
 
-  it("Should be able to set JWT expiration", () => {
-    const token = generateJwt(dummy, "5s");
-    const { decoded } = verifyJwt(token);
-    expect(decoded).toHaveProperty("exp");
+  it("should generate a JWT with payload and without expiration", () => {
+    const mockPayload = { userId: 123, role: "user" };
+    const mockGeneratedJwt = "mockedJwtToken";
+
+    (require("jsonwebtoken").sign as jest.Mock).mockReturnValue(
+      mockGeneratedJwt
+    );
+
+    const result = generateJwt(mockPayload);
+
+    expect(result).toEqual(mockGeneratedJwt);
+    expect(require("jsonwebtoken").sign).toHaveBeenCalledWith(
+      mockPayload,
+      require("@/configs/app.config").config.jwtSecretKey,
+      {
+        algorithm: "HS256",
+      }
+    );
   });
 });

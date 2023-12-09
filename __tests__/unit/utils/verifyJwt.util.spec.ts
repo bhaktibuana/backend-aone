@@ -39,19 +39,15 @@ describe("verifyJwt", () => {
     const mockToken = "invalidToken";
     const mockError = new Error("Token verification failed");
 
-    // Mock the jwt.verify function to return an error
     (require("jsonwebtoken").verify as jest.Mock).mockImplementation(
       (token, secret, options, callback) => {
         callback(mockError, null);
       }
     );
 
-    // Call the verifyJwt function
     const result: IVerifyJwt<Object> = verifyJwt(mockToken);
 
-    // Assertions
     expect(result).toEqual({ error: mockError, decoded: null });
-    // Optionally, you can assert that jwt.verify was called with the expected parameters
     expect(require("jsonwebtoken").verify).toHaveBeenCalledWith(
       mockToken,
       require("@/configs/app.config").config.jwtSecretKey,
@@ -60,26 +56,3 @@ describe("verifyJwt", () => {
     );
   });
 });
-
-// import { generateJwt, verifyJwt } from "@/utils";
-
-// describe("Verify JWT", () => {
-//   const dummy = { name: "John" };
-
-//   it("Should be able to decode JWT", () => {
-//     const token = generateJwt(dummy);
-//     const { decoded } = verifyJwt(token);
-//     expect(decoded).toHaveProperty("name");
-//   });
-
-//   it("Should error if invalid token", () => {
-//     const { error } = verifyJwt("asdoiqjdiwqqd");
-//     expect(error).toHaveProperty("name");
-//   });
-
-//   it("Should error if token expired", () => {
-//     const token = generateJwt(dummy, "-1s");
-//     const { error } = verifyJwt(token);
-//     expect(error?.name).toBe("TokenExpiredError");
-//   });
-// });
