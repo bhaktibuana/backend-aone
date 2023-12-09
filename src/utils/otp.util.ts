@@ -21,7 +21,7 @@ export const verifyOtp = (otp: string, otpToken: string): IVerifyOtp => {
 
   const { error, decoded }: TOtpToken = verifyJwt(otpToken);
 
-  if (error && error.message === "TokenExpiredError") {
+  if (error && error.name === "TokenExpiredError") {
     response = {
       verified: false,
       message: "OTP expired",

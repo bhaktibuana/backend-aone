@@ -36,7 +36,7 @@ class EmailVerificationController extends Model {
       query.token
     );
 
-    if (error) return response("Invalid Token", 401, res, error.message);
+    if (error) return response("Invalid Token", 401, res, error.name);
 
     const userPaylaod = {
       isVerified: true,
