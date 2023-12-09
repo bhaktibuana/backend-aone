@@ -56,7 +56,10 @@ jest.mock("@/utils/verifyJwt.util", () => ({
 }));
 
 describe("verifyOtp", () => {
-  beforeAll;
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("should return 'OTP verified' for a valid OTP", () => {
     const validPayload: TOtpToken = {
       error: null,

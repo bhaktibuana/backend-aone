@@ -1,36 +1,47 @@
 import { capitalizeName, parseFullName } from "@/utils";
 
-describe("Parse Name", () => {
-  it("Should be able to capitalize a name", () => {
-    const name = "john doe";
-    const capitalized = capitalizeName(name);
-    expect(capitalized).toBe("John Doe");
+describe("capitalizeName", () => {
+  it("should capitalize each word in the name", () => {
+    const result = capitalizeName("john doe");
+
+    expect(result).toEqual("John Doe");
   });
 
-  it("Should return empty string if there is no name", () => {
-    const name = "";
-    const capitalized = capitalizeName(name);
-    expect(capitalized).toBe("");
+  it("should handle leading and trailing spaces", () => {
+    const result = capitalizeName("   alice    smith   ");
+
+    expect(result).toEqual("Alice Smith");
   });
 
-  it("Should be able to join first name and last name", () => {
-    const firstName = "Peter";
-    const lastName = "Paul Walker";
-    const parsedName = parseFullName(firstName, lastName);
-    expect(parsedName).toBe("Peter Paul Walker");
+  it("should handle empty input", () => {
+    const result = capitalizeName("");
+
+    expect(result).toEqual("");
   });
 
-  it("Should be able show first name only if last name is empty", () => {
-    const firstName = "Peter";
-    const lastName = "";
-    const parsedName = parseFullName(firstName, lastName);
-    expect(parsedName).toBe("Peter");
+  it("should handle input with only spaces", () => {
+    const result = capitalizeName("     ");
+
+    expect(result).toEqual("");
+  });
+});
+
+describe("parseFullName", () => {
+  it("should concatenate capitalized first and last names", () => {
+    const result = parseFullName("robert", "downey jr.");
+
+    expect(result).toBe("Robert Downey Jr.");
   });
 
-  it("Should be able show last name only if first name is empty", () => {
-    const firstName = "";
-    const lastName = "Paul Walker";
-    const parsedName = parseFullName(firstName, lastName);
-    expect(parsedName).toBe("Paul Walker");
+  it("should handle empty first name", () => {
+    const result = parseFullName("", "smith");
+
+    expect(result).toBe("Smith");
+  });
+
+  it("should handle empty last name", () => {
+    const result = parseFullName("john", "");
+
+    expect(result).toBe("John");
   });
 });
