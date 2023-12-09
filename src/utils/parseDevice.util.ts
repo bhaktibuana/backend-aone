@@ -1,13 +1,15 @@
 import DeviceDetector from "device-detector-js";
 
-export const parseDevice = (deviceObject: DeviceDetector.DeviceDetectorResult): string => {
+export const parseDevice = (
+  deviceObject: DeviceDetector.DeviceDetectorResult
+): string => {
   const client = deviceObject.client;
   const os = deviceObject.os;
   const device = deviceObject.device;
 
-  if (os === null && device === null) return `${client?.name}`;
-  if (os !== null && device === null) return `${os.name}`;
-  if (os === null && device !== null) {
+  if (os !== null && device === null) {
+    return `${os.name}`;
+  } else if (os === null && device !== null) {
     if (device.brand !== "" && device.model !== "") {
       return `${device.brand} ${device.model}`;
     } else if (device.brand !== "" && device.model === "") {
@@ -17,8 +19,7 @@ export const parseDevice = (deviceObject: DeviceDetector.DeviceDetectorResult): 
     } else {
       return `${device.type}`;
     }
-  }
-  if (os !== null && device !== null) {
+  } else if (os !== null && device !== null) {
     if (device.brand !== "" && device.model !== "") {
       return `${device.brand} ${device.model}`;
     } else if (device.brand !== "" && device.model === "") {
@@ -28,6 +29,7 @@ export const parseDevice = (deviceObject: DeviceDetector.DeviceDetectorResult): 
     } else {
       return `${os.name} ${device.type}`;
     }
+  } else {
+    return `${client?.name}`;
   }
-  return `${client?.name}`;
 };
