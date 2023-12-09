@@ -3,7 +3,7 @@ export {
   response,
   serverErrorResponse,
   AppError,
-} from "@/utils/response.utill";
+} from "@/utils/response.util";
 export { parseDevice } from "@/utils/parseDevice.util";
 export { logFormat, logOptions } from "@/utils/appLogger.util";
 export { hashPassword } from "@/utils/hashPassword.util";
