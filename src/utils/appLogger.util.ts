@@ -42,7 +42,6 @@ export const logOptions = (): TLogOptions => {
     fs.readdir(logDir, (error, files) => {
       if (error) return;
       files.forEach((file) => {
-        console.log(file);
         const fileDate = file.split("-")[1].split(".")[0];
         if (
           moment(fileDate, "YYYYMMDD").isSameOrBefore(
