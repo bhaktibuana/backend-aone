@@ -213,6 +213,21 @@ class LoginController extends Model {
             required: true,
             attributes: { exclude: this.excludes },
           },
+          {
+            model: this.models.UserSubscription,
+            as: "UserSubscription",
+            required: true,
+            where: { isActive: true },
+            attributes: { exclude: this.excludes },
+            include: [
+              {
+                model: this.models.Subscription,
+                as: "Subscription",
+                required: true,
+                attributes: { exclude: this.excludes },
+              },
+            ],
+          },
         ],
         attributes: {
           exclude: [...this.excludes, "password"],
