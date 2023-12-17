@@ -56,3 +56,5 @@ export {
   ILogoutLogInput,
   ILogoutLogOutput,
 } from "@/types/models/logoutLog/ILogoutLogIO.type";
+export { IUpdateUserInfoRequest } from "@/types/controllers/authentication/profile/IUpdateUserInfoRequest.type";
+export { IChangePasswordRequest } from "@/types/controllers/authentication/profile/IChangePasswordRequest.type";
