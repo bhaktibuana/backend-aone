@@ -13,6 +13,9 @@ router.use("/auth/login", loginRoute);
 
 import { logoutRoute } from "@/routes/authentication/logout.route";
 router.use("/auth/logout", logoutRoute);
+
+import { profileRoute } from "@/routes/authentication/profile.route";
+router.use("/auth/profile", profileRoute);
 /* [END ROUTING] */
 
 export default router;

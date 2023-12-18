@@ -4,6 +4,6 @@ import { logoutController } from "@/controllers";
 import { PrivateAPI } from "@/apis";
 
 export const logoutRoute = Router();
-const publicApi = new PrivateAPI(logoutController, logoutRoute);
+const privateApi = new PrivateAPI(logoutController, logoutRoute);
 
-publicApi.post("/", logoutController.logout);
+privateApi.post("/", logoutController.logout);
