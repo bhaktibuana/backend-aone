@@ -9,10 +9,10 @@ export interface IPreviousParams {
 }
 
 export interface IResponsePagination {
-  currentPage?: number;
-  totalPages?: number;
   totalItems?: number;
-  perPages?: number;
-  nextParams?: INextParams | null;
-  previousParams?: IPreviousParams | null;
+  totalPages?: number;
+  perPage?: number;
+  currentPage?: number;
+  nextPage?: number | null;
+  previousPage?: number | null;
 }

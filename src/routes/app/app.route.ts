@@ -16,6 +16,9 @@ router.use("/auth/logout", logoutRoute);
 
 import { profileRoute } from "@/routes/authentication/profile.route";
 router.use("/auth/profile", profileRoute);
+
+import { paymentMethodRoute } from "@/routes/commonUser/paymentMethod.route";
+router.use("/cu/paymentMethod", paymentMethodRoute);
 /* [END ROUTING] */
 
 export default router;

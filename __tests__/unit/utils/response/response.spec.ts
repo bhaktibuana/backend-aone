@@ -26,12 +26,9 @@ describe("response", () => {
       currentPage: 1,
       totalPages: 10,
       totalItems: 100,
-      perPages: 10,
-      nextParams: {
-        offset: 10,
-        limit: 0,
-      },
-      previousParams: null,
+      perPage: 10,
+      nextPage: 2,
+      previousPage: null,
     };
 
     response(message, statusCode, fullMockResponse, data, pagination);

@@ -58,3 +58,6 @@ export {
 } from "@/types/models/logoutLog/ILogoutLogIO.type";
 export { IUpdateUserInfoRequest } from "@/types/controllers/authentication/profile/IUpdateUserInfoRequest.type";
 export { IChangePasswordRequest } from "@/types/controllers/authentication/profile/IChangePasswordRequest.type";
+export { ICreatePaymentMethodRequest } from "@/types/controllers/commonUser/paymentMethod/ICreatePaymentMethodRequest.type";
+export { IGetPaymentMethodListRequest } from "@/types/controllers/commonUser/paymentMethod/IGetPaymentMethodListRequest.type";
+export { IDeletePaymentMethodRequest } from "@/types/controllers/commonUser/paymentMethod/IDeletePaymentMethodRequest.type";
